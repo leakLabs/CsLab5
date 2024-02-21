@@ -1,0 +1,61 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Lab4.MedicineDB;
+@using lab5.Models;
+@model createViewModel
+
+<head>
+    <title>Ред. препарат</title>
+    <meta charset="utf-8" />
+</head>
+
+<h2>Изменить препарат</h2>
+
+<form asp-action="Edit" asp-controller="Medicine" asp-route-id="@Model.medicine.ID">
+    <div>
+        <label asp-for="medicine.Name">Название</label>
+        <input asp-for="medicine.Name" />
+        <span asp-validation-for="medicine.Name"></span>
+    </div>
+
+    <div>
+        <label asp-for="medicine.Form">Форма</label>
+        <input asp-for="medicine.Form" />
+        <span asp-validation-for="medicine.Form"></span>
+    </div>
+
+    <div>
+        <label asp-for="medicine.Dosage">Дозировка</label>
+        <input asp-for="medicine.Dosage" />
+        <span asp-validation-for="medicine.Dosage"></span>
+    </div>
+
+    <div>
+        Производитель:
+    </div>
+
+    <div>
+        @Html.DropDownList("medicine.Manufacturers_ID", new SelectList(Model.Manufacturers, "ID", "Name"))
+    </div>
+
+    <div>
+        Состав:
+    </div>
+
+    <div>
+        @Html.ListBox("IDs", new MultiSelectList(Model.Ingredients, "ID", "Name"))
+    </div>
+
+    <div>
+        Описание:
+    </div>
+
+    <div>
+        @Html.TextArea("medicine.Description")
+    </div>
+
+    <input type="hidden" asp-for="medicine.ID" value="@Model.medicine.ID" />
+
+    <button type="submit">Сохранить</button>
+</form>
+
+<a asp-action="Index">Назад</a>

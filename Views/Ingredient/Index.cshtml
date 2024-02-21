@@ -1,0 +1,48 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Lab4.MedicineDB;
+@model List<Ingredient>
+
+<head>
+    <title>Ингридиенты</title>
+    <meta charset="utf-8" />
+</head>
+
+<h2>Список компонентов</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Препараты</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ingredient in Model)
+        {
+            <tr>
+                <td>@ingredient.ID</td>
+                <td>@ingredient.Name</td>
+                <td>
+                    @foreach (var medicine in ingredient.Medicines)
+                    {
+                        <div>@medicine.Name</div>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@ingredient.ID">Редактировать</a>
+                    @if (ingredient.Medicines.Count == 0)
+                    {
+                        <form asp-controller="Ingredient" asp-action="Delete" method="post" asp-route-id="@ingredient.ID">
+                            <input type="submit" value="Удалить" />
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div><a asp-action="Create">Новый ингридиент</a></div>
+
+<div>@Html.ActionLink("В меню", "Index", "Home")</div>

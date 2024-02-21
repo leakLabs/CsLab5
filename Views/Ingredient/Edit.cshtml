@@ -1,0 +1,22 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Lab4.MedicineDB;
+@model Ingredient
+
+<head>
+    <title>Ред. ингридиент</title>
+    <meta charset="utf-8" />
+</head>
+
+<h2>Редактировать ингридиент</h2>
+
+<form asp-action="Edit" asp-controller="Ingredient" asp-route-id="@Model.ID">
+    <div>
+        <label asp-for="Name">Имя</label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <button type="submit">Сохранить</button>
+
+    <a asp-action="Index">Назад</a>
+</form>
